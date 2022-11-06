@@ -7,5 +7,5 @@ public class Plane
     public string Model { get; set; } = string.Empty;
     public double Hours { get; set; } = 0;
 
-    public ICollection<Pilot> Pilots { get; set; }
+    public ICollection<Pilot>? Pilots { get; set; }
 }
