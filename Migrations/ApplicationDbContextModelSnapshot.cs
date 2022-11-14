@@ -21,33 +21,7 @@ namespace DS_CSCI3110_Final.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Pilot", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlaneId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlaneId");
-
-                    b.ToTable("Pilots");
-                });
-
-            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Plane", b =>
+            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Airplane", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,21 +42,47 @@ namespace DS_CSCI3110_Final.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Planes");
+                    b.ToTable("Airplanes");
                 });
 
             modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Pilot", b =>
                 {
-                    b.HasOne("DS_CSCI3110_Final.Models.Entities.Plane", "Planes")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AirplaneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.ToTable("Pilots");
+                });
+
+            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Pilot", b =>
+                {
+                    b.HasOne("DS_CSCI3110_Final.Models.Entities.Airplane", "Airplanes")
                         .WithMany("Pilots")
-                        .HasForeignKey("PlaneId")
+                        .HasForeignKey("AirplaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Planes");
+                    b.Navigation("Airplanes");
                 });
 
-            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Plane", b =>
+            modelBuilder.Entity("DS_CSCI3110_Final.Models.Entities.Airplane", b =>
                 {
                     b.Navigation("Pilots");
                 });

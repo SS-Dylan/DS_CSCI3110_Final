@@ -15,7 +15,7 @@ namespace DS_CSCI3110_Final.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Plane");
+            return RedirectToAction("Index", "Airplane");
         }
 
         public IActionResult Privacy()

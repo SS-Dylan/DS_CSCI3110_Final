@@ -9,6 +9,6 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<Plane>? Planes { get; set; }
+    public DbSet<Airplane>? Airplanes { get; set; }
     public DbSet<Pilot>? Pilots { get; set; }
 }
