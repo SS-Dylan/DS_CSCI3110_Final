@@ -13,7 +13,7 @@ public class AirplaneVM
     public double Hours { get; set; }
 
     public ICollection<Pilot> Pilots = new List<Pilot>();
-    
+
     public Airplane GetPlaneInstance()
     {
         return new Airplane

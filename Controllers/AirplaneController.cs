@@ -1,5 +1,4 @@
-﻿using DS_CSCI3110_Final.Models.Entities;
-using DS_CSCI3110_Final.Models.ViewModels;
+﻿using DS_CSCI3110_Final.Models.ViewModels;
 using DS_CSCI3110_Final.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -94,7 +93,7 @@ public class AirplaneController : Controller
         };
         return View(airplaneVM);
     }
-    
+
     /// <summary>
     /// POST method for editing an airplane.
     /// </summary>
@@ -110,7 +109,7 @@ public class AirplaneController : Controller
         }
         return RedirectToAction("Index");
     }
-    
+
     /// <summary>
     /// GET method for deleting an airplane.
     /// </summary>
@@ -121,7 +120,7 @@ public class AirplaneController : Controller
         var airplane = await _airplaneRepository.ReadAsync(id);
         return View(airplane);
     }
-    
+
     /// <summary>
     /// POST method for deleting an airplane.
     /// </summary>

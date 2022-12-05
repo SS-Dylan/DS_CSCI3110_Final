@@ -1,8 +1,6 @@
-﻿using DS_CSCI3110_Final.Models.Entities;
-using DS_CSCI3110_Final.Models.ViewModels;
+﻿using DS_CSCI3110_Final.Models.ViewModels;
 using DS_CSCI3110_Final.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace DS_CSCI3110_Final.Controllers;
 
@@ -65,7 +63,7 @@ public class PilotController : Controller
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IActionResult> Edit([Bind(Prefix = "id")]int airplaneId, int pilotId)
+    public async Task<IActionResult> Edit([Bind(Prefix = "id")] int airplaneId, int pilotId)
     {
         var airplane = await _airplaneRepo.ReadAsync(airplaneId);
         if (airplane == null)

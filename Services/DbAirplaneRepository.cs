@@ -1,7 +1,5 @@
 ﻿using DS_CSCI3110_Final.Models.Entities;
-using DS_CSCI3110_Final.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace DS_CSCI3110_Final.Services;
 
@@ -15,7 +13,7 @@ public class DbAirplaneRepository : IAirplaneRepository
     {
         _db = db;
     }
-    
+
     /// <summary>
     /// Adds new airplane to the database.
     /// </summary>
@@ -27,7 +25,7 @@ public class DbAirplaneRepository : IAirplaneRepository
         await _db.SaveChangesAsync();
         return airplane;
     }
-    
+
     /// <summary>
     /// Displays one specific airplane.
     /// </summary>
@@ -36,7 +34,7 @@ public class DbAirplaneRepository : IAirplaneRepository
     public async Task<Airplane?> ReadAsync(int id)
     {
         var airplane = await _db.Airplanes.FindAsync(id);
-        if(airplane != null)
+        if (airplane != null)
         {
             _db.Entry(airplane)
                 .Collection(p => p.Pilots)
@@ -44,7 +42,7 @@ public class DbAirplaneRepository : IAirplaneRepository
         }
         return airplane;
     }
-    
+
     /// <summary>
     /// Returns entire list of airplanes in the table.
     /// </summary>
@@ -55,7 +53,7 @@ public class DbAirplaneRepository : IAirplaneRepository
                 .Include(p => p.Pilots)
                 .ToListAsync();
     }
-    
+
     /// <summary>
     /// Allows for the editing of airplane entities.
     /// </summary>
@@ -73,7 +71,7 @@ public class DbAirplaneRepository : IAirplaneRepository
             await _db.SaveChangesAsync();
         };
     }
-    
+
     /// <summary>
     /// Removes an airplane from the database.
     /// </summary>
@@ -128,12 +126,12 @@ public class DbAirplaneRepository : IAirplaneRepository
         if (airplane != null)
         {
             var pilotToUpdate = airplane.Pilots.FirstOrDefault(p => p.Id == updatedPilot.Id);
-            if(pilotToUpdate != null)
+            if (pilotToUpdate != null)
             {
                 pilotToUpdate.FirstName = updatedPilot.FirstName;
                 pilotToUpdate.LastName = updatedPilot.LastName;
                 await _db.SaveChangesAsync();
-            }    
+            }
         }
     }
 }

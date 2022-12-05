@@ -17,7 +17,7 @@ public class AirplaneAPIController : Controller
     {
         _airplaneRepository = airplaneRepository;
     }
-    
+
     /// <summary>
     /// Method for creating an airplane
     /// </summary>
@@ -30,7 +30,7 @@ public class AirplaneAPIController : Controller
         await _airplaneRepository.CreateAsync(airplane);
         return NoContent();
     }
-    
+
     /// <summary>
     /// Method for updating airplane properties
     /// </summary>
@@ -43,7 +43,7 @@ public class AirplaneAPIController : Controller
         await _airplaneRepository.UpdateAsync(airplane.Id, airplane);
         return NoContent();
     }
-    
+
     /// <summary>
     /// Method for deleting an airplane.
     /// </summary>

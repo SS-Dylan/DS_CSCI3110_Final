@@ -1,6 +1,5 @@
 ﻿using DS_CSCI3110_Final.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using DS_CSCI3110_Final.Models.ViewModels;
 
 namespace DS_CSCI3110_Final.Services;
 
