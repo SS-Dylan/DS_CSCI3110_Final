@@ -8,8 +8,12 @@ namespace DS_CSCI3110_Final.Services;
 public interface IAirplaneRepository
 {
     Task<Airplane> CreateAsync(Airplane airplane);
-    Task<Airplane> ReadAsync(int id);
+    Task<Airplane?> ReadAsync(int id);
     Task<ICollection<Airplane>> ReadAllAsync();
     Task UpdateAsync(int airplaneId, Airplane airplane);
     Task DeleteAsync(int airplaneId);
+
+    Task<Pilot> CreatePilotAsync(int airplaneId, Pilot pilot);
+    Task<ICollection<Pilot>> ReadAllPilotAsync();
+    Task UpdatePilotAsync(int pilotId, Pilot pilot);
 }

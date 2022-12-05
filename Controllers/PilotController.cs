@@ -2,6 +2,7 @@
 using DS_CSCI3110_Final.Models.ViewModels;
 using DS_CSCI3110_Final.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DS_CSCI3110_Final.Controllers;
 
@@ -10,18 +11,24 @@ namespace DS_CSCI3110_Final.Controllers;
 /// </summary>
 public class PilotController : Controller
 {
-    private readonly IPilotRepository _pilotRepository;
-    public PilotController(IPilotRepository pilotRepository)
+    private readonly IAirplaneRepository _airplaneRepo;
+    public PilotController(IAirplaneRepository airplaneRepo)
     {
-        _pilotRepository = pilotRepository;
+        _airplaneRepo = airplaneRepo;
     }
 
     /// <summary>
     /// GET method for creating a pilot.
     /// </summary>
     /// <returns></returns>
-    public IActionResult Create()
+    public async Task<IActionResult> CreateAsync([Bind(Prefix = "id")] int airplaneId)
     {
+        var airplane = await _airplaneRepo.ReadAsync(airplaneId);
+        if (airplane == null)
+        {
+            RedirectToAction("Index", "Airplane");
+        }
+        ViewData["Airplane"] = airplane;
         return View();
     }
 
@@ -31,35 +38,17 @@ public class PilotController : Controller
     /// <param name="pilotVM"></param>
     /// <returns></returns>
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(PilotVM pilotVM)
+    public async Task<IActionResult> Create(int airplaneId, PilotVM pilotVM)
     {
-        if (ModelState.IsValid)
+        if (pilotVM != null)
         {
-            var pilot = pilotVM.GetPilotInstance();
-            await _pilotRepository.CreateAsync(pilot);
+            var model = pilotVM.GetPilotInstance();
+            await _airplaneRepo.CreatePilotAsync(airplaneId, model);
+            return RedirectToAction("Details", "Airplane", new { id = airplaneId });
         }
-        return RedirectToAction("Index");
-    }
-
-    /// <summary>
-    /// Method to return details on a specific pilot.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<IActionResult> Details(int id)
-    {
-        var pilot = await _pilotRepository.ReadAsync(id);
-        if (pilot == null)
-        {
-            return RedirectToAction("Index", "Pilot");
-        }
-        var model = new PilotVM()
-        {
-            Id = pilot.Id,
-            FirstName = pilot.FirstName,
-            LastName = pilot.LastName
-        };
-        return View(model);
+        var airplane = _airplaneRepo.ReadAsync(airplaneId);
+        ViewData["Airplane"] = airplane;
+        return View(pilotVM);
     }
 
     /// <summary>
@@ -68,7 +57,7 @@ public class PilotController : Controller
     /// <returns></returns>
     public async Task<IActionResult> Index()
     {
-        return View(await _pilotRepository.ReadAllAsync());
+        return View(await _airplaneRepo.ReadAllPilotAsync());
     }
 
     /// <summary>
@@ -76,12 +65,17 @@ public class PilotController : Controller
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit([Bind(Prefix = "id")]int airplaneId, int pilotId)
     {
-        var pilot = await _pilotRepository.ReadAsync(id);
+        var airplane = await _airplaneRepo.ReadAsync(airplaneId);
+        if (airplane == null)
+        {
+            return RedirectToAction("Index", "Airplane");
+        }
+        var pilot = airplane.Pilots.FirstOrDefault(p => p.Id == pilotId);
         if (pilot == null)
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Airplane");
         }
         var pilotVM = new PilotVM
         {
@@ -98,36 +92,15 @@ public class PilotController : Controller
     /// <param name="pilotVM"></param>
     /// <returns></returns>
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(PilotVM pilotVM)
+    public async Task<IActionResult> Edit(int airplaneId, PilotVM pilotVM)
     {
         if (ModelState.IsValid)
         {
             var pilot = pilotVM.GetPilotInstance();
-            await _pilotRepository.UpdateAsync(pilot.Id, pilot);
+            await _airplaneRepo.UpdatePilotAsync(airplaneId, pilot);
+            return RedirectToAction("Details", "Airplane", new { id = airplaneId });
         }
-        return RedirectToAction("Index");
-    }
-
-    /// <summary>
-    /// GET method for deleting a pilot.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<IActionResult> Delete(int id)
-    {
-        var pilot = await _pilotRepository.ReadAsync(id);
-        return View(pilot);
-    }
-
-    /// <summary>
-    /// POST method for deleting a pilot.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        await _pilotRepository.DeleteAsync(id);
-        return RedirectToAction("Index");
+        pilotVM.Airplane = await _airplaneRepo.ReadAsync(airplaneId);
+        return View(pilotVM);
     }
 }
