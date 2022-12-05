@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace DS_CSCI3110_Final.Models.ViewModels;
 
-public class AirplaneDetailsVM
+public class AirplaneVM
 {
     public Airplane? Airplane { get; set; }
     public int Id { get; set; }
@@ -13,4 +13,15 @@ public class AirplaneDetailsVM
     public double Hours { get; set; } = 0;
 
     public ICollection<Pilot> Pilots = new List<Pilot>();
+    
+    public Airplane GetPlaneInstance()
+    {
+        return new Airplane
+        {
+            Id = Id,
+            TailNum = TailNum,
+            Model = Model,
+            Hours = Hours
+        };
+    }
 }

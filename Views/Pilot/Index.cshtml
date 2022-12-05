@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DS_CSCI3110_Final.Models.Entities.Airplane>
+﻿@model IEnumerable<DS_CSCI3110_Final.Models.Entities.Pilot>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TailNum)
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Model)
+                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hours)
+                @Html.DisplayNameFor(model => model.Airplane)
             </th>
             <th></th>
         </tr>
@@ -28,13 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TailNum)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Model)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hours)
+                @Html.DisplayFor(modelItem => item.Airplane.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -45,7 +45,3 @@
 }
     </tbody>
 </table>
-
-@section Scripts{
-    <script src="~/js/toolTip.js"></script>
-}
