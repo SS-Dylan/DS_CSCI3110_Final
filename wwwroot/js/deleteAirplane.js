@@ -1,6 +1,7 @@
 ﻿"use strict";
 
-import { deleteAirplane } from "./airplaneRepo.js"; //Import the create function
+//Import the delete function
+import { deleteAirplane } from "./airplaneRepo.js";
 
 (function _airplaneDelete() {
     var formDeleteAirplane =
@@ -14,13 +15,13 @@ import { deleteAirplane } from "./airplaneRepo.js"; //Import the create function
         var id = formData.get("Id");    //Get the airplane Id from the form data
 
         try
-        {
-            var result = await deleteAirplane(id);  //Send AJAX call
+        {   //Send AJAX call
+            var result = await deleteAirplane(id);  
         }
 
         finally
-        {
-            window.location.replace(`/airplane`);   //Redirect
+        {   //Redirect
+            window.location.replace(`/airplane`);   
         }
     });
 })();

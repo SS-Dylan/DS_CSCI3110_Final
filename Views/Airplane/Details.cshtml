@@ -48,10 +48,7 @@
                     Id
                 </th>
                 <th>
-                    First Name
-                </th>
-                <th>
-                    Last Name
+                    Name
                 </th>
                 <th></th>
             </tr>
@@ -70,9 +67,7 @@
                         </td>
                         <td>
                             <a asp-action="Edit" asp-controller="Pilot"
-                   asp-route-id="@Model.Id" asp-route-authorId="@pilot.Id">Edit</a> |
-                            <a asp-action="Delete" asp-controller="Pilot"
-                   asp-route-id="@Model.Id" asp-route-authorId="@pilot.Id">Delete</a>
+                   asp-route-id="@Model.Id" asp-route-pilotId="@pilot.Id">Edit</a>
                         </td>
                     </tr>
                 }
@@ -80,7 +75,6 @@
         </tbody>
     </table>
 }
-
 
 @section Scripts {
     @{

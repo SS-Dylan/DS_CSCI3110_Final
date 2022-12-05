@@ -1,7 +1,8 @@
 ﻿"using strict";
 // Class to handle creating, updating, and deleting airplanes.
 
-const baseAddress = "/api/airplaneapi"; //Path to the AirplaneAPIController
+//Path to the AirplaneAPIController
+const baseAddress = "/api/airplaneapi";
 
 //Sends AJAX request to api/airplaneapi/create to create an airplane
 export async function create(formData) {

@@ -8,9 +8,9 @@ public class AirplaneVM
     public Airplane? Airplane { get; set; }
     public int Id { get; set; }
     [DisplayName("Tail Number")]
-    public string TailNum { get; set; } = string.Empty;
-    public string Model { get; set; } = string.Empty;
-    public double Hours { get; set; } = 0;
+    public string TailNum { get; set; }
+    public string Model { get; set; }
+    public double Hours { get; set; }
 
     public ICollection<Pilot> Pilots = new List<Pilot>();
     

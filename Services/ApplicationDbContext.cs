@@ -16,5 +16,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Airplane>? Airplanes { get; set; }
     public DbSet<Pilot>? Pilots { get; set; }
     public DbSet<DS_CSCI3110_Final.Models.ViewModels.AirplaneVM> AirplaneVM { get; set; }
-    public DbSet<DS_CSCI3110_Final.Models.ViewModels.PilotVM> PilotVM { get; set; }
+    public DbSet<DS_CSCI3110_Final.Models.ViewModels.CreatePilotVM> PilotVM { get; set; }
+    public DbSet<DS_CSCI3110_Final.Models.ViewModels.EditPilotVM> EditPilotVM { get; set; }
 }

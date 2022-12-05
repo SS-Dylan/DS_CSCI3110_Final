@@ -1,6 +1,7 @@
 ﻿using DS_CSCI3110_Final.Models.Entities;
 using DS_CSCI3110_Final.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace DS_CSCI3110_Final.Services;
 
@@ -22,7 +23,7 @@ public class DbAirplaneRepository : IAirplaneRepository
     /// <returns></returns>
     public async Task<Airplane> CreateAsync(Airplane airplane)
     {
-        await _db.Airplanes.AddAsync(airplane);
+        _db.Airplanes.Add(airplane);
         await _db.SaveChangesAsync();
         return airplane;
     }
@@ -95,9 +96,15 @@ public class DbAirplaneRepository : IAirplaneRepository
     /// <returns></returns>
     public async Task<Pilot> CreatePilotAsync(int airplaneId, Pilot pilot)
     {
-        await _db.Pilots.AddAsync(pilot);
-        await _db.SaveChangesAsync();
-        return pilot;
+        var model = await ReadAsync(airplaneId);
+        if (model != null && pilot != null)
+        {
+            model.Pilots.Add(pilot);
+            pilot.Airplane = model;
+            await _db.SaveChangesAsync();
+            return pilot;
+        }
+        return new Pilot();
     }
 
     /// <summary>

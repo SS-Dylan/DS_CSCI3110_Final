@@ -1,14 +1,13 @@
-﻿@model DS_CSCI3110_Final.Models.ViewModels.PilotVM
+﻿@model DS_CSCI3110_Final.Models.ViewModels.CreatePilotVM
 @using DS_CSCI3110_Final.Models.Entities
 
 @{
     var airplane = (Airplane)ViewData["Airplane"];
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = $"Adding pilot to {airplane.TailNum}";
 }
 
-<h1>Create</h1>
+<h1>Adding pilot to @airplane.TailNum</h1>
 
-<h4>PilotVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,7 +32,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details" asp-controller="Airplane" asp-route-id="@airplane.Id">Back to Airplane Details</a>
 </div>
 
 @section Scripts {

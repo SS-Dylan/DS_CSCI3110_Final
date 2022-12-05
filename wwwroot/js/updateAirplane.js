@@ -1,6 +1,7 @@
 ﻿"use strict";
 
-import { update } from "./airplaneRepo.js"; //Import the create function
+ //Import the update function
+import { update } from "./airplaneRepo.js";
 
 (function _airplaneUpdate() {
     var formUpdateAirplane =
@@ -12,13 +13,13 @@ import { update } from "./airplaneRepo.js"; //Import the create function
         var formData = new FormData(formUpdateAirplane);
         
         try
-        {
-            var result = await update(formData);    //Send AJAX call
+        {    //Send AJAX call
+            var result = await update(formData);
         }
         
         finally
-        {
-            window.location.replace(`/airplane`);   //Redirect
+        {   //Redirect
+            window.location.replace(`/airplane`);
         }
     });
 })();

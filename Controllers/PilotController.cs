@@ -35,20 +35,20 @@ public class PilotController : Controller
     /// <summary>
     /// POST method for creating a pilot.
     /// </summary>
-    /// <param name="pilotVM"></param>
+    /// <param name="pilot"></param>
     /// <returns></returns>
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(int airplaneId, PilotVM pilotVM)
+    public async Task<IActionResult> Create(int airplaneId, CreatePilotVM pilot)
     {
-        if (pilotVM != null)
+        if (pilot != null)
         {
-            var model = pilotVM.GetPilotInstance();
+            var model = pilot.GetPilotInstance();
             await _airplaneRepo.CreatePilotAsync(airplaneId, model);
             return RedirectToAction("Details", "Airplane", new { id = airplaneId });
         }
         var airplane = _airplaneRepo.ReadAsync(airplaneId);
         ViewData["Airplane"] = airplane;
-        return View(pilotVM);
+        return View(pilot);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public class PilotController : Controller
         {
             return RedirectToAction("Details", "Airplane");
         }
-        var pilotVM = new PilotVM
+        var pilotVM = new EditPilotVM
         {
             Id = pilot.Id,
             FirstName = pilot.FirstName,
@@ -92,7 +92,7 @@ public class PilotController : Controller
     /// <param name="pilotVM"></param>
     /// <returns></returns>
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int airplaneId, PilotVM pilotVM)
+    public async Task<IActionResult> Edit(int airplaneId, EditPilotVM pilotVM)
     {
         if (ModelState.IsValid)
         {
